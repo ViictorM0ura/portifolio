@@ -217,23 +217,27 @@ function initAudioSystem() {
 function createSnowflake() {
     const snowContainer = document.querySelector('.snow-container');
     if (!snowContainer) return;
-    
+
+    if (isMobile()) {
+        return; // Não cria partículas em dispositivos móveis
+    }
+
     const snowflake = document.createElement('div');
     snowflake.classList.add('snowflake');
     snowflake.innerHTML = '❄';
-    
+
     // Posição aleatória
     snowflake.style.left = Math.random() * 100 + '%';
     snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
     snowflake.style.opacity = Math.random() * 0.6 + 0.2;
-    
+
     // Duração da animação aleatória
     const duration = Math.random() * 3 + 2;
     snowflake.style.animationDuration = duration + 's';
-    
+
     // Adicionar ao container
     snowContainer.appendChild(snowflake);
-    
+
     // Remover após a animação
     setTimeout(() => {
         if (snowflake.parentNode) {
@@ -241,6 +245,7 @@ function createSnowflake() {
         }
     }, duration * 1000);
 }
+
 
 // Animação de entrada dos cartões
 function animateCards() {
@@ -250,13 +255,17 @@ function animateCards() {
         card.style.opacity = '0';
         card.style.transform = 'translateY(50px)';
         
+        const animationDuration = isMobile() ? '1s' : '0.6s'; // Maior duração no mobile
+        const delay = isMobile() ? 300 : index * 100; // Maior delay no mobile
+        
         setTimeout(() => {
-            card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            card.style.transition = `all ${animationDuration} cubic-bezier(0.175, 0.885, 0.32, 1.275)`;
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
-        }, index * 100);
+        }, delay);
     });
 }
+
 
 // Efeito de clique nos botões
 function addButtonEffects() {
@@ -332,6 +341,10 @@ function handleNetworkClick(network) {
 
 // Efeito de parallax suave no scroll
 function addParallaxEffect() {
+    if (isMobile()) {
+        return; // Não adicionar parallax em dispositivos móveis
+    }
+
     let ticking = false;
     
     function updateParallax() {
@@ -351,6 +364,7 @@ function addParallaxEffect() {
         }
     });
 }
+
 
 // Adicionar CSS para o efeito ripple
 function addRippleCSS() {
@@ -1683,5 +1697,39 @@ function monitorPerformance() {
         });
     }
 }
+
+// Função para detectar dispositivos móveis
+function isMobile() {
+    return window.innerWidth <= 768; // Ou outro critério de breakpoint
+}
+
+// Ajustar animações para mobile
+function adjustForMobile() {
+    if (isMobile()) {
+        // Desabilitar animações pesadas
+        document.body.classList.add('mobile');
+        // Pode desabilitar ou ajustar os efeitos pesados, como partículas ou animações intensas
+        const style = document.createElement('style');
+        style.textContent = `
+            .snowflake {
+                animation-duration: 5s !important; /* Lenta no mobile */
+            }
+            .card {
+                transition: none !important; /* Desabilitar transições nos cards no mobile */
+            }
+            .card-button {
+                transition: none !important; /* Desabilitar transições nos botões */
+            }
+        `;
+        document.head.appendChild(style);
+    } else {
+        document.body.classList.remove('mobile');
+    }
+}
+
+// Chama a função no carregamento e no redimensionamento da tela
+adjustForMobile();
+window.addEventListener('resize', adjustForMobile);
+
 
 monitorPerformance();
