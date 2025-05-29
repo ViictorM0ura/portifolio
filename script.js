@@ -214,37 +214,37 @@ function initAudioSystem() {
 }
 
 // Efeito de neve animada
-function createSnowflake() {
-    const snowContainer = document.querySelector('.snow-container');
-    if (!snowContainer) return;
+// function createSnowflake() {
+//     const snowContainer = document.querySelector('.snow-container');
+//     if (!snowContainer) return;
 
-    if (isMobile()) {
-        return; // Não cria partículas em dispositivos móveis
-    }
+//     if (isMobile()) {
+//         return; // Não cria partículas em dispositivos móveis
+//     }
 
-    const snowflake = document.createElement('div');
-    snowflake.classList.add('snowflake');
-    snowflake.innerHTML = '❄';
+//     const snowflake = document.createElement('div');
+//     snowflake.classList.add('snowflake');
+//     snowflake.innerHTML = '❄';
 
-    // Posição aleatória
-    snowflake.style.left = Math.random() * 100 + '%';
-    snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-    snowflake.style.opacity = Math.random() * 0.6 + 0.2;
+//     // Posição aleatória
+//     snowflake.style.left = Math.random() * 100 + '%';
+//     snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+//     snowflake.style.opacity = Math.random() * 0.6 + 0.2;
 
-    // Duração da animação aleatória
-    const duration = Math.random() * 3 + 2;
-    snowflake.style.animationDuration = duration + 's';
+//     // Duração da animação aleatória
+//     const duration = Math.random() * 3 + 2;
+//     snowflake.style.animationDuration = duration + 's';
 
-    // Adicionar ao container
-    snowContainer.appendChild(snowflake);
+//     // Adicionar ao container
+//     snowContainer.appendChild(snowflake);
 
-    // Remover após a animação
-    setTimeout(() => {
-        if (snowflake.parentNode) {
-            snowflake.remove();
-        }
-    }, duration * 1000);
-}
+//     // Remover após a animação
+//     setTimeout(() => {
+//         if (snowflake.parentNode) {
+//             snowflake.remove();
+//         }
+//     }, duration * 1000);
+// }
 
 
 // Animação de entrada dos cartões
@@ -486,53 +486,53 @@ function createFloatingParticles() {
     `;
     document.body.appendChild(particleContainer);
     
-    function createParticle() {
-        const particle = document.createElement('div');
-        particle.style.cssText = `
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(0, 255, 136, 0.3);
-            border-radius: 50%;
-            animation: float ${Math.random() * 6 + 4}s linear infinite;
-        `;
-        
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = '100%';
-        
-        particleContainer.appendChild(particle);
-        
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.remove();
-            }
-        }, 10000);
-    }
+    // Remover a função createParticle() que gera as bolinhas
+    // function createParticle() {
+    //     const particle = document.createElement('div');
+    //     particle.style.cssText = `
+    //         position: absolute;
+    //         width: 4px;
+    //         height: 4px;
+    //         background: rgba(0, 255, 136, 0.3);
+    //         border-radius: 50%;
+    //         animation: float ${Math.random() * 6 + 4}s linear infinite;
+    //     `;
+    //     particle.style.left = Math.random() * 100 + '%';
+    //     particle.style.top = '100%';
+    //     particleContainer.appendChild(particle);
+    //     setTimeout(() => {
+    //         if (particle.parentNode) {
+    //             particle.remove();
+    //         }
+    //     }, 10000);
+    // }
     
-    // Adicionar CSS da animação
-    const particleStyle = document.createElement('style');
-    particleStyle.textContent = `
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(particleStyle);
+    // Remover a animação das partículas
+    // const particleStyle = document.createElement('style');
+    // particleStyle.textContent = `
+    //     @keyframes float {
+    //         0% {
+    //             transform: translateY(0) translateX(0) rotate(0deg);
+    //             opacity: 0;
+    //         }
+    //         10% {
+    //             opacity: 1;
+    //         }
+    //         90% {
+    //             opacity: 1;
+    //         }
+    //         100% {
+    //             transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px) rotate(360deg);
+    //             opacity: 0;
+    //         }
+    //     }
+    // `;
+    // document.head.appendChild(particleStyle);
     
-    setInterval(createParticle, 1000);
+    // Não chamar mais a função createParticle
+    // setInterval(createParticle, 1000);
 }
+
 
 // Efeito de loading inicial
 function showLoadingAnimation() {
@@ -875,11 +875,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Criar neve continuamente
-setInterval(() => {
-    if (document.querySelector('.snow-container')) {
-        createSnowflake();
-    }
-}, 200);
+// setInterval(() => {
+//     if (document.querySelector('.snow-container')) {
+//         createSnowflake();
+//     }
+// }, 200);
 
 // Função para redimensionamento da janela
 window.addEventListener('resize', () => {
