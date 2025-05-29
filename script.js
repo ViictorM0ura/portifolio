@@ -255,8 +255,8 @@ function animateCards() {
         card.style.opacity = '0';
         card.style.transform = 'translateY(50px)';
         
-        const animationDuration = isMobile() ? '1s' : '0.6s'; // Maior duração no mobile
-        const delay = isMobile() ? 300 : index * 100; // Maior delay no mobile
+        const animationDuration = isMobile() ? '0s' : '0.6s'; // Desativa animações no mobile
+        const delay = isMobile() ? 0 : index * 100; // Remove delay no mobile
         
         setTimeout(() => {
             card.style.transition = `all ${animationDuration} cubic-bezier(0.175, 0.885, 0.32, 1.275)`;
@@ -265,8 +265,6 @@ function animateCards() {
         }, delay);
     });
 }
-
-
 // Efeito de clique nos botões
 function addButtonEffects() {
     const buttons = document.querySelectorAll('.card-button');
@@ -342,7 +340,7 @@ function handleNetworkClick(network) {
 // Efeito de parallax suave no scroll
 function addParallaxEffect() {
     if (isMobile()) {
-        return; // Não adicionar parallax em dispositivos móveis
+        return; // Desativa o parallax em dispositivos móveis
     }
 
     let ticking = false;
@@ -364,8 +362,6 @@ function addParallaxEffect() {
         }
     });
 }
-
-
 // Adicionar CSS para o efeito ripple
 function addRippleCSS() {
     const style = document.createElement('style');
@@ -617,30 +613,40 @@ function showLoadingAnimation() {
     }, 2500);
 }
 
-// Função para detectar dispositivo móvel
+// Função para detectar dispositivos móveis
 function isMobile() {
-    return window.innerWidth <= 768;
+    return window.innerWidth <= 768; // Ajuste conforme necessário
 }
 
-// Ajustar animações para mobile
-function adjustForMobile() {
+// Desabilitar animações pesadas em dispositivos móveis
+function disableMobileAnimations() {
     if (isMobile()) {
-        // Reduzir partículas em dispositivos móveis
+        // Desabilitar animações de partículas (neve, por exemplo)
         const style = document.createElement('style');
         style.textContent = `
-            @media (max-width: 768px) {
-                .custom-cursor {
-                    display: none;
-                }
-                
-                .card::before {
-                    display: none;
-                }
+            .snow-container, .snowflake {
+                display: none !important;
+            }
+            .card {
+                transition: none !important;
+            }
+            .card-button {
+                transition: none !important;
+            }
+            .logo-container {
+                transform: none !important;
             }
         `;
         document.head.appendChild(style);
+
+        console.log('🎮 Animações desabilitadas para dispositivos móveis');
     }
 }
+
+// Chame a função no carregamento da página e ao redimensionar
+window.addEventListener('resize', disableMobileAnimations);
+document.addEventListener('DOMContentLoaded', disableMobileAnimations);
+
 
 // Otimização de performance
 function optimizePerformance() {
@@ -1730,6 +1736,28 @@ function adjustForMobile() {
 // Chama a função no carregamento e no redimensionamento da tela
 adjustForMobile();
 window.addEventListener('resize', adjustForMobile);
+
+function removeHeavyEffectsForMobile() {
+    if (isMobile()) {
+        // Remove o efeito de partículas
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            .particle-container {
+                display: none !important;
+            }
+            .custom-cursor {
+                display: none !important;
+            }
+        `;
+        document.head.appendChild(particleStyle);
+
+        console.log('🎮 Efeitos pesados removidos para dispositivos móveis');
+    }
+}
+
+// Chame a função quando a página carregar
+window.addEventListener('resize', removeHeavyEffectsForMobile);
+document.addEventListener('DOMContentLoaded', removeHeavyEffectsForMobile);
 
 
 monitorPerformance();
