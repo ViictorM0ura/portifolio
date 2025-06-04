@@ -212,41 +212,6 @@ function initAudioSystem() {
         }
     }, 2000);
 }
-
-// Efeito de neve animada
-// function createSnowflake() {
-//     const snowContainer = document.querySelector('.snow-container');
-//     if (!snowContainer) return;
-
-//     if (isMobile()) {
-//         return; // Não cria partículas em dispositivos móveis
-//     }
-
-//     const snowflake = document.createElement('div');
-//     snowflake.classList.add('snowflake');
-//     snowflake.innerHTML = '❄';
-
-//     // Posição aleatória
-//     snowflake.style.left = Math.random() * 100 + '%';
-//     snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-//     snowflake.style.opacity = Math.random() * 0.6 + 0.2;
-
-//     // Duração da animação aleatória
-//     const duration = Math.random() * 3 + 2;
-//     snowflake.style.animationDuration = duration + 's';
-
-//     // Adicionar ao container
-//     snowContainer.appendChild(snowflake);
-
-//     // Remover após a animação
-//     setTimeout(() => {
-//         if (snowflake.parentNode) {
-//             snowflake.remove();
-//         }
-//     }, duration * 1000);
-// }
-
-
 // Animação de entrada dos cartões
 function animateCards() {
     const cards = document.querySelectorAll('.card');
@@ -295,7 +260,6 @@ function addButtonEffects() {
         });
     });
 }
-
 // Função para lidar com cliques nas redes sociais
 function handleNetworkClick(network) {
     const networks = {
@@ -303,24 +267,6 @@ function handleNetworkClick(network) {
         instagram: 'https://www.instagram.com/viictor_158/',
         discord: 'https://discord.gg/FvwXhJzDn2',
         github: 'https://github.com/ViictorM0ura',
-        // loja: 'https://www.arenahosting.com.br/',
-        // mods: 'https://www.arenamods.com.br/',
-        // cidade: 'https://discord.gg/K3jUhZCksT',
-        // kick: 'https://kick.com/arenamta',
-        // tiktok: 'https://tiktok.com/@arenamta',
-        // twitter: 'https://twitter.com/arenamta',
-        // facebook: 'https://facebook.com/arenamta',
-        // twitch: 'https://twitch.tv/arenamta',
-        // telegram: 'https://t.me/arenamta',
-        // whatsapp: 'https://wa.me/5511999999999',
-        // spotify: 'https://open.spotify.com/user/arenamta',
-        // soundcloud: 'https://soundcloud.com/arenamta',
-        // linkedin: 'https://linkedin.com/company/arenamta',
-        // steam: 'https://steamcommunity.com/groups/arenamta',
-        // website: 'https://www.arenamta.com.br/',
-        // forum: 'https://forum.arenamta.com.br/',
-        // suporte: 'https://suporte.arenamta.com.br/',
-        // tickets: 'https://tickets.arenamta.com.br/'
     };
     
     if (networks[network]) {
@@ -485,52 +431,6 @@ function createFloatingParticles() {
         z-index: 1;
     `;
     document.body.appendChild(particleContainer);
-    
-    // Remover a função createParticle() que gera as bolinhas
-    // function createParticle() {
-    //     const particle = document.createElement('div');
-    //     particle.style.cssText = `
-    //         position: absolute;
-    //         width: 4px;
-    //         height: 4px;
-    //         background: rgba(0, 255, 136, 0.3);
-    //         border-radius: 50%;
-    //         animation: float ${Math.random() * 6 + 4}s linear infinite;
-    //     `;
-    //     particle.style.left = Math.random() * 100 + '%';
-    //     particle.style.top = '100%';
-    //     particleContainer.appendChild(particle);
-    //     setTimeout(() => {
-    //         if (particle.parentNode) {
-    //             particle.remove();
-    //         }
-    //     }, 10000);
-    // }
-    
-    // Remover a animação das partículas
-    // const particleStyle = document.createElement('style');
-    // particleStyle.textContent = `
-    //     @keyframes float {
-    //         0% {
-    //             transform: translateY(0) translateX(0) rotate(0deg);
-    //             opacity: 0;
-    //         }
-    //         10% {
-    //             opacity: 1;
-    //         }
-    //         90% {
-    //             opacity: 1;
-    //         }
-    //         100% {
-    //             transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px) rotate(360deg);
-    //             opacity: 0;
-    //         }
-    //     }
-    // `;
-    // document.head.appendChild(particleStyle);
-    
-    // Não chamar mais a função createParticle
-    // setInterval(createParticle, 1000);
 }
 
 
@@ -873,13 +773,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('🔒 Proteção contra pausas automáticas ativada!');
     }, 2500);
 });
-
-// Criar neve continuamente
-// setInterval(() => {
-//     if (document.querySelector('.snow-container')) {
-//         createSnowflake();
-//     }
-// }, 200);
 
 // Função para redimensionamento da janela
 window.addEventListener('resize', () => {
@@ -1310,12 +1203,6 @@ window.arenaDebug = {
 };
 
 console.log('🎮 VITOR MOURA Debug disponível em window.arenaDebug');
-
-
-
-
-
-// Adicione estas funções ao seu script.js existente
 
 // Contador animado para estatísticas
 function animateCounters() {
