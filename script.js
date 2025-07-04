@@ -462,7 +462,7 @@ function setupContactOptions() {
 
         dialog.querySelector('.whatsapp-option').addEventListener('click', () => {
             // Link para WhatsApp (Web ou App)
-            window.open(`https://wa.me/${phoneNumber}?text=Olá%2C%20visitei%20seu%20portfólio%20e%20gostaria%20de%20saber%20mais%20sobre%20seus%20serviços.`, '_blank');
+            window.open(`https://wa.me/${phoneNumber}?text=Olá%2C%20visitei%20seu%20portfólio%20e%20gostaria%20de%20saber%20mais%20sobre.`, '_blank');
             closeDialog();
         });
 
