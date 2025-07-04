@@ -571,3 +571,30 @@ html {
 .card-button:focus {
     box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.3);
 }
+
+/* Estilo para o novo link de contato no rodapé */
+.footer-logo .contact-link {
+    color: #00ff88; /* Sua cor verde */
+    font-size: 1.8rem; /* Tamanho padrão para desktop */
+    margin-bottom: 0.8rem;
+    text-decoration: none; /* Remove sublinhado padrão de link */
+    word-wrap: break-word; /* PERMITE A QUEBRA DE LINHA para palavras longas */
+    white-space: normal; /* PERMITE A QUEBRA DE LINHA, anulando nowrap */
+    overflow: visible; /* Garante que o texto não seja cortado */
+    text-overflow: clip; /* Remove o ellipsis */
+    max-width: 100%; /* Continua sendo uma boa prática */
+    display: block; /* Para que margin-bottom funcione corretamente */
+    line-height: 1.2; /* Ajuste a altura da linha se o email quebrar */
+}
+
+/* RESPONSIVIDADE para o link de contato no rodapé */
+@media (max-width: 768px) {
+    .footer-logo .contact-link {
+        font-size: 1.3rem; /* Tamanho menor para telas menores */
+    }
+}
+@media (max-width: 480px) {
+    .footer-logo .contact-link {
+        font-size: 1.1rem; /* Ainda menor para telas muito pequenas */
+    }
+}

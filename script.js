@@ -342,23 +342,163 @@ function showNotification(network) {
 // =======================================================
 
 // Inicialização de todas as funcionalidades quando o DOM estiver carregado
+// Função para lidar com o clique no link de e-mail/WhatsApp
+function setupContactOptions() {
+    const contactEmailLink = document.getElementById('contactEmailLink');
+    if (!contactEmailLink) {
+        console.warn('Link de contato não encontrado no rodapé.');
+        return;
+    }
+
+    contactEmailLink.addEventListener('click', (event) => {
+        event.preventDefault(); 
+
+        const email = 'contatovitormoura1998@gmail.com';
+        const phoneNumber = '5571987300325';
+
+        // Cria a caixa de diálogo/opções
+        const dialog = document.createElement('div');
+        dialog.classList.add('contact-dialog');
+        dialog.innerHTML = `
+            <p>Como você prefere entrar em contato?</p>
+            <button class="dialog-button email-option">Enviar E-MAIL</button>
+            <button class="dialog-button whatsapp-option">WhatsApp</button>
+            <button class="dialog-button close-dialog">Cancelar</button>
+        `;
+
+        // Adiciona os estilos da caixa de diálogo (injetado dinamicamente)
+        const dialogStyle = document.createElement('style');
+        dialogStyle.textContent = `
+            .contact-dialog {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #1a1a1a; /* Fundo escuro */
+                border: 2px solid #00ff88; /* Borda verde */
+                border-radius: 10px;
+                padding: 25px;
+                z-index: 10001; /* Acima de tudo */
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                max-width: 90%; /* Limita a largura em telas menores */
+            }
+            .contact-dialog.show {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            .contact-dialog p {
+                font-size: 1.1rem;
+                color: #ffffff;
+                margin-bottom: 15px;
+            }
+            .dialog-button {
+                background: linear-gradient(45deg, #00ff88, #00cc6a);
+                color: #121212;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1rem;
+                width: 100%; /* Botões com largura total */
+            }
+            .dialog-button:hover {
+                background: linear-gradient(45deg, #00cc6a, #00ff88);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+            }
+            .dialog-button.close-dialog {
+                background: rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+            }
+            .dialog-button.close-dialog:hover {
+                background: rgba(255, 255, 255, 0.2);
+                color: #ffffff;
+                box-shadow: none;
+                transform: none;
+            }
+            /* Overlay para escurecer o fundo */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 10000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .overlay.show {
+                opacity: 1;
+            }
+        `;
+        document.head.appendChild(dialogStyle);
+
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        document.body.appendChild(overlay);
+        document.body.appendChild(dialog);
+
+        // Adiciona classe 'show' para animação de entrada
+        setTimeout(() => {
+            overlay.classList.add('show');
+            dialog.classList.add('show');
+        }, 10);
+
+        // Lógica dos botões
+        dialog.querySelector('.email-option').addEventListener('click', () => {
+            window.location.href = `mailto:${email}`;
+            closeDialog();
+        });
+
+        dialog.querySelector('.whatsapp-option').addEventListener('click', () => {
+            // Link para WhatsApp (Web ou App)
+            window.open(`https://wa.me/${phoneNumber}?text=Olá%2C%20visitei%20seu%20portfólio%20e%20gostaria%20de%20saber%20mais%20sobre%20seus%20serviços.`, '_blank');
+            closeDialog();
+        });
+
+        dialog.querySelector('.close-dialog').addEventListener('click', closeDialog);
+        overlay.addEventListener('click', closeDialog); // Clicar fora fecha o diálogo
+
+        function closeDialog() {
+            dialog.classList.remove('show');
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                dialog.remove();
+                overlay.remove();
+                dialogStyle.remove(); // Remove os estilos também
+            }, 300); // Tempo da transição de saída
+        }
+    });
+}
+
+// Chame a nova função na inicialização principal
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mostrar a animação de carregamento IMEDIATAMENTE.
-    showLoadingAnimation(); 
+    showLoadingAnimation();
     
-    // 2. Após o loader desaparecer, inicializar as outras funcionalidades.
-    // O setTimeout aqui sincroniza com o fim da animação do loader.
     setTimeout(() => {
-        addRippleCSS(); // Adiciona o CSS para o efeito ripple dos botões
-        addButtonEffects(); // Ativa os efeitos de clique nos botões
-        setupIntersectionObserver(); // Configura a animação de entrada dos cards
-        addParallaxEffect(); // Ativa o efeito parallax (apenas desktop)
-        typeWriter(); // Inicia o efeito de digitação do título
-        setupInteractionNotifications(); // Configura as notificações ao interagir com cards
+        // ... (suas outras chamadas de função) ...
+        addRippleCSS();
+        addButtonEffects();
+        setupIntersectionObserver();
+        addParallaxEffect();
+        typeWriter();
+        setupInteractionNotifications();
+        
+        setupContactOptions(); // <--- ADICIONADO AQUI
         
         console.log('🎮 VITOR MOURA - Site otimizado carregado com sucesso!');
-        console.log('✨ Efeitos essenciais ativados: Loader, Cards, Botões, Parallax, Notificações, Digitação!');
-    }, 2500); // Este tempo deve ser igual ou ligeiramente maior que o tempo total do loader (2s animação + 0.5s fade-out)
+        console.log('✨ Efeitos essenciais ativados: Loader, Cards, Botões, Parallax, Notificações, Digitação, Opções de Contato!');
+    }, 2500);
 });
 
 // Listener para ajustar parallax e outras coisas em resize
@@ -367,3 +507,4 @@ window.addEventListener('resize', () => {
     addParallaxEffect();
     // Se tiver outras otimizações responsivas baseadas em JS, adicione-as aqui.
 });
+
